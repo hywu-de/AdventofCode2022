@@ -1,6 +1,7 @@
 # Programming with Python template
 
-**Student:* Hsin Yu Wu (2576696)
+***Student: Hsin Yu Wu (2576696)
+***AoC user name: #2319221
 
 ***[Prof. Dr Sven Rahmann](rahmann@cs.uni-saarland.de)***
 
