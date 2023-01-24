@@ -56,6 +56,16 @@ for i in lines:
         else:   # coordinates[k][1] == coordinates[k+1][1]  # vertical path
             for pos_y in range(min(coordinates[k][0], coordinates[k+1][0]), max(coordinates[k][0], coordinates[k+1][0]) + 1):
                 rock_map[pos_y, coordinates[k][1]] = 1
+        #print(rock_map)
+'''
+[0. 0. 0. ... 0. 1. 0.]
+ [0. 0. 0. ... 0. 1. 0.]
+ [0. 0. 0. ... 1. 1. 0.]]
+[[0. 0. 0. ... 0. 0. 0.]
+ [0. 0. 0. ... 0. 0. 0.]
+ [0. 0. 0. ... 0. 0. 0.]]
+
+'''
 
 # initialize sand position
 init_sand = [0, 500]  # consider as [y, x]
@@ -72,13 +82,13 @@ while check_put:
             if rock_map[new_sand[0] + 1, new_sand[1]] == 0:  # below not blocked (no 1(rock))
                 new_sand = [new_sand[0] + 1, new_sand[1]]    # new_sand can go down(one step down)
             else:
-                if new_sand[1] == 0:  # left is abyss  # x座標=0
+                if new_sand[1] == 0:  # left is abyss  # [idx]=0
                     check_put = False
                     break   # finish because sand falls into abyss
                 elif rock_map[new_sand[0] + 1, new_sand[1] - 1] == 0:  # one step down and to the left is not 1(rock)
                     new_sand = [new_sand[0] + 1, new_sand[1] - 1]
                 else:
-                    if new_sand[1] >= max_width:  # right is abyss
+                    if new_sand[1] >= max_width:  # right is abyss , out of edge
                         check_put = False
                         break  # finish because sand falls into abyss
                     elif rock_map[new_sand[0] + 1, new_sand[1] + 1] == 0:  # one step down and to the right is not 1(rock)
@@ -103,11 +113,11 @@ with open('day14.txt', 'r') as f:
 
 max_width = 0
 max_height = 0
-padding = 10000000
+padding = 10000000 
 
+# get the rock edges
 for i in lines:
     for pair in i.split(' -> '):
-        # get the edges
         max_width = max(max_width, eval(pair)[0]) 
         max_height = max(max_height, eval(pair)[1])
 
@@ -116,7 +126,7 @@ rock_map = np.zeros((max_height + 1 + 2, max_width))  # two more for floor
 
 # fill the rock map with 1
 for i in lines:
-    coordinates = [[eval(pair)[1], eval(pair)[0]] for pair in i.split(' -> ')]
+    coordinates = [[eval(pair)[1], padding + eval(pair)[0]] for pair in i.split(' -> ')]
     for k in range(len(coordinates) - 1):  # only check till [idx - 1]
         if coordinates[k][0] == coordinates[k+1][0]:  # horizontal path
             for pos_x in range(min(coordinates[k][1], coordinates[k+1][1]), max(coordinates[k][1], coordinates[k+1][1]) + 1):
@@ -124,6 +134,39 @@ for i in lines:
         else:   # coordinates[k][1] == coordinates[k+1][1]  # vertical path
             for pos_y in range(min(coordinates[k][0], coordinates[k+1][0]), max(coordinates[k][0], coordinates[k+1][0]) + 1):
                 rock_map[pos_y, coordinates[k][1]] = 1
+            
+
+# to put rocks (set as = 1) at the most bottom
+# 2 + the highest y coordinate
+for i in range(max_width):
+    rock_map[max_height + 2, i] = 1
+
+init_sand = [0, padding + 500]  #initial sand position
+counter = 0
+check_put = True 
+while True:
+    new_sand = init_sand
+    counter += 1
+    while True:    # only consider whether below, down/left, down/right is blocked
+        if rock_map[new_sand[0] + 1, new_sand[1]] == 0: # below not blocked
+            new_sand = [new_sand[0] + 1, new_sand[1]]
+        else:
+            if rock_map[new_sand[0] + 1, new_sand[1] - 1] == 0: # down and left not blocked
+                new_sand = [new_sand[0] + 1, new_sand[1] - 1]
+            else:
+                if rock_map[new_sand[0] + 1, new_sand[1] + 1] == 0: # down and right not blocked
+                    new_sand = [new_sand[0] + 1, new_sand[1] + 1]
+                else:  # no place to put, rest 
+                    rock_map[new_sand[0], new_sand[1]] = 1
+                    break
+    # if sand comes to rest at init_sand[0, 500]
+    if new_sand[0] == init_sand[0] and new_sand[1] == init_sand[1]: 
+        break
+print(counter)  
+
+
+
+
 
 
 
