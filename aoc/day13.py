@@ -152,6 +152,8 @@ print(sum(right_order_lst))
 
 from functools import cmp_to_key  # use this function to do comparison
 # implement check_right_order for sorting
+# this comparison function accepts two arguments, compares them, 
+# -> returns -1 for less-than, 0 for equality, or return 1 for greater-than
 
 packets = list()
 lines = [eval(line) for line in lines]
@@ -163,6 +165,7 @@ sorted_packets = sorted(lines, key=cmp_to_key(lambda left, right: check_right_or
 # lst = [3,2,1]
 # --> lst = [1,2,3]
 sorted_packets = sorted_packets[::-1]  # need to sort from small to big
+
 
 ## find indexes of divider packets
 idx_lst = list()
