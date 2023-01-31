@@ -47,7 +47,7 @@ for coor in coordinate_set:
 def check_free(x, y, z):
     global directions, coordinate_set, maxx, maxy, maxz, minz, miny, minx
     
-    max_cube_number = (maxx - minx) * (maxy - miny) * (maxz - minz)  # if a side is connected to this number of free blocks, it must be a free side
+    max_cube_number = (maxx - minx) * (maxy - miny) * (maxz - minz)  # if a side is connected to this number of free cubes, it must be a free side
     free_set = set()  # to add inwards cubes 
     stack = [[x, y, z]] 
 
@@ -70,7 +70,7 @@ for coor in coordinate_set:
     x, y, z = eval(coor)
     for dx, dy, dz in directions:
         idx = f"{x + dx},{y + dy},{z + dz}"
-        if idx not in coordinate_set:   # a free block near a side
+        if idx not in coordinate_set:   # a free cube near a side
             total += check_free(x + dx, y + dy, z + dz)
 print(total) 
 
