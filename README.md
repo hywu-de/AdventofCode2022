@@ -9,5 +9,7 @@ Each day between the 1st and 25th of December, a new two-part challenge will be 
 ```
 ├── aoc
 │   ├── day01.txt (everyone is supposed to receive different but same structured input data)
-│   └── day01.py (solution includes two-part problems)
+│   └── day01.py (solution includes two-part problems)│ 
+└── README.md
+
 ```
