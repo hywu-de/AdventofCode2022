@@ -59,7 +59,7 @@ while temp != "end":
                 temp = "end"
                 ans += d2s[digit]  # d2s[digit]: value of d2s
 
-        else:   # when power of n != 0 --> 檢查剩下數值範圍是否在 222 ~ === 
+        else:   # when power of n != 0 --> check if the remain values are belowe 222 ~ === 
             num_test = temp - digit * pow(5, n)
 
             if num_test <= max_num(n-1) and num_test >= min_num(n-1): # if the remaning number is between 222 ~ ===
