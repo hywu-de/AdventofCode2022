@@ -10,7 +10,7 @@ Provide the solutions in Python for Day 1 - 10, 12, 13, 14, 15, 17, 18, 20, 21, 
 ```
 ├── aoc
 │   ├── day01.txt (everyone is supposed to receive different but same structured input data)
-│   └── day01.py (solution includes two-part problems)│ 
+│   └── day01.py (solution includes two-part problems)
 └── README.md
 
 ```
